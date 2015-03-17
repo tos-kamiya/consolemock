@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/tos-kamiya/consolemock.svg)](https://travis-ci.org/tos-kamiya/consolemock)
+
 # consolemock
 A Java's mock unit-testing kit for java.io.Console or System.in/out.
 
