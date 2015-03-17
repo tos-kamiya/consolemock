@@ -96,7 +96,8 @@ public class ScenarioConsole implements AbstractConsole {
                 items.add(new Abort());
                 break;
             default:
-                assert message.substring(0, 2).equals("$ ") || message.substring(0, 2).equals("> ");
+                System.err.println("head = " + head);
+                assert head.equals("$ ") || head.equals("> ") || head.equals("! ");
                 assert false; // never reach here
             }
         }

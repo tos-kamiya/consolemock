@@ -15,7 +15,8 @@ class FillingFields {
         String productId = console.readLine("product id: ");
         for (char c : productId.toCharArray()) {
             if (! Character.isLetterOrDigit(c)) {
-                console.format("Error. invalid product id\n");
+                console.format("Error. invalid product id.\n");
+                console.format("Order canceld.\n");
                 return;
             }
         }
@@ -79,18 +80,23 @@ public class FillingFieldsTest {
         assertThat(senario[console.getProgress()], is(senario[senario.length - 1]));
     }
     
-    @Test(expected=Abort.class)
+    @Test
     public void testInvalidProductId() {
         String[] senario = new String[] {
             "> product id: ",
             "$ $%#",
-            "Error. invalid product id\n",
+            "> Error. invalid product id.\n",
             "! " // abort. no need to check the following.
         };
         ScenarioConsole console = new ScenarioConsole(senario);
         
         FillingFields sut = new FillingFields();
         sut.console = console;
-        sut.run();
+        try {
+            sut.run();
+            fail();
+        } catch (Abort e) {
+            // ok
+        }
     }
 }
