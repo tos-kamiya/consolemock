@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import consolemock.*;
-import consolemock.SenarioConsoleException.*;
+import consolemock.ScenarioConsoleException.*;
 
 class FillingFields {
     public AbstractConsole console = new SystemInOutConsole();
@@ -24,7 +24,7 @@ class FillingFields {
 public class FillingFieldsTest {
     @Test
     public void testOrdering() {
-        SenarioConsole console = new SenarioConsole(new String[] {
+        ScenarioConsole console = new ScenarioConsole(new String[] {
             "> product id: ",
             "$ shaver001",
             "> qty: ",
@@ -35,12 +35,12 @@ public class FillingFieldsTest {
         FillingFields sut = new FillingFields();
         sut.console = console;
         sut.run();
-        assertTrue(console.isDone());
+        assertTrue(console.isScenarioDone());
     }
 
     @Test(expected = NumberFormatException.class)
     public void testInvalidNumber() {
-        SenarioConsole console = new SenarioConsole(new String[] {
+        ScenarioConsole console = new ScenarioConsole(new String[] {
             "> product id: ",
             "$ shaver002",
             "> qty: ",
@@ -50,7 +50,7 @@ public class FillingFieldsTest {
         FillingFields sut = new FillingFields();
         sut.console = console;
         sut.run();
-        assertTrue(console.isDone());
+        assertTrue(console.isScenarioDone());
     }
 
     @Test
@@ -63,13 +63,13 @@ public class FillingFieldsTest {
             "> Order: product shaver003, qty 4.\n",
             "$ extra input line" // extra input
         };
-        SenarioConsole console = new SenarioConsole(senario);
+        ScenarioConsole console = new ScenarioConsole(senario);
         
         FillingFields sut = new FillingFields();
         sut.console = console;
         sut.run();
 
-        assertThat(console.isDone(), is(false));
+        assertThat(console.isScenarioDone(), is(false));
         assertThat(senario[console.getProgress()], is(senario[senario.length - 1]));
     }
 }

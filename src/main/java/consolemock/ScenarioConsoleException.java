@@ -1,28 +1,28 @@
 package consolemock;
 
-import consolemock.SenarioConsole.Format;
-import consolemock.SenarioConsole.ReadLine;
+import consolemock.ScenarioConsole.Format;
+import consolemock.ScenarioConsole.ReadLine;
 
 import static consolemock.Repr.toPrintableRepresentation;
 
-public class SenarioConsoleException extends RuntimeException {
+public class ScenarioConsoleException extends RuntimeException {
     private static final long serialVersionUID = 1L;
     
-    public SenarioConsoleException() {}
+    public ScenarioConsoleException() {}
     
-    public SenarioConsoleException(String message) {
+    public ScenarioConsoleException(String message) {
         super(message);
     }
 
-    public SenarioConsoleException(String message, Throwable cause) {
+    public ScenarioConsoleException(String message, Throwable cause) {
         super(message, cause);
     }
     
-    public SenarioConsoleException(Throwable cause) {
+    public ScenarioConsoleException(Throwable cause) {
         super(cause);
     }
     
-    public static class ExhaustdButFormat extends SenarioConsoleException {
+    public static class ExhaustdButFormat extends ScenarioConsoleException {
         private static final long serialVersionUID = 1L;
 
         public final String actualWriteText;
@@ -36,14 +36,14 @@ public class SenarioConsoleException extends RuntimeException {
         }
     }
     
-    public static class ExhaustdButReadLine extends SenarioConsoleException {
+    public static class ExhaustdButReadLine extends ScenarioConsoleException {
         private static final long serialVersionUID = 1L;
 
         public ExhaustdButReadLine() {
         }
     }
     
-    public static class ReadLineExpectedButFormat extends SenarioConsoleException {
+    public static class ReadLineExpectedButFormat extends ScenarioConsoleException {
         private static final long serialVersionUID = 1L;
 
         public final int progress;
@@ -62,7 +62,7 @@ public class SenarioConsoleException extends RuntimeException {
         }
     }
 
-    public static class FormatExpectedButReadLine extends SenarioConsoleException {
+    public static class FormatExpectedButReadLine extends ScenarioConsoleException {
         private static final long serialVersionUID = 1L;
 
         public final int progress;
@@ -79,7 +79,7 @@ public class SenarioConsoleException extends RuntimeException {
         }
     }
 
-    public static class FormatWrongText extends SenarioConsoleException {
+    public static class FormatWrongText extends ScenarioConsoleException {
         private static final long serialVersionUID = 1L;
 
         public final int progress;

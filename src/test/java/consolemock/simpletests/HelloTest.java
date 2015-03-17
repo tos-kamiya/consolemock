@@ -21,7 +21,7 @@ class Hello {
 public class HelloTest {
     @Test
     public void helloJohn() {
-        SenarioConsole console = new SenarioConsole(new String[] {
+        ScenarioConsole console = new ScenarioConsole(new String[] {
             "> What's your name: ",
             "$ John",
             "> Hello, John!\n"
@@ -30,12 +30,12 @@ public class HelloTest {
         Hello sut = new Hello();
         sut.console = console;
         sut.run();
-        assertTrue(console.isDone());
+        assertTrue(console.isScenarioDone());
     }
 
     @Test
     public void emptyInput() {
-        SenarioConsole console = new SenarioConsole(new String[] {
+        ScenarioConsole console = new ScenarioConsole(new String[] {
             "> What's your name: ",
             "$ ",
             "> Hello, Mr.Nobody!\n"
@@ -44,6 +44,6 @@ public class HelloTest {
         Hello sut = new Hello();
         sut.console = console;
         sut.run();
-        assertTrue(console.isDone());
+        assertTrue(console.isScenarioDone());
     }
 }

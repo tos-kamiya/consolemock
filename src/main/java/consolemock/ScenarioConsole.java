@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import consolemock.AbstractConsole;
 
-public class SenarioConsole implements AbstractConsole {
-    private Item[] senario;
+public class ScenarioConsole implements AbstractConsole {
+    private Item[] scenario;
     private int progress;
 
     public static class Item {
@@ -34,39 +34,39 @@ public class SenarioConsole implements AbstractConsole {
     }
     
     private String readLine_i() {
-        if (progress >= senario.length)
-            throw new SenarioConsoleException.ExhaustdButReadLine();
+        if (progress >= scenario.length)
+            throw new ScenarioConsoleException.ExhaustdButReadLine();
         int pos = progress++;
-        Item item = senario[pos];
+        Item item = scenario[pos];
         try {
             ReadLine r = (ReadLine)item;
             return r.text;
         } catch (ClassCastException e) {
             Format w = (Format)item;
-            throw new SenarioConsoleException.FormatExpectedButReadLine(pos, w);
+            throw new ScenarioConsoleException.FormatExpectedButReadLine(pos, w);
         }
     }
     
     private void format_i(String actualWriteText) {
-        if (progress >= senario.length)
-            throw new SenarioConsoleException.ExhaustdButFormat(actualWriteText);
+        if (progress >= scenario.length)
+            throw new ScenarioConsoleException.ExhaustdButFormat(actualWriteText);
         int pos = progress++;
-        Item item = senario[pos];
+        Item item = scenario[pos];
         try {
             Format w = (Format)item;
             if (! actualWriteText.equals(w.text))
-                throw new SenarioConsoleException.FormatWrongText(pos, w, actualWriteText);
+                throw new ScenarioConsoleException.FormatWrongText(pos, w, actualWriteText);
         } catch (ClassCastException e) {
             ReadLine r = (ReadLine)item;
-            throw new SenarioConsoleException.ReadLineExpectedButFormat(pos, r, actualWriteText);
+            throw new ScenarioConsoleException.ReadLineExpectedButFormat(pos, r, actualWriteText);
         }
     }
     
-    public boolean isDone() {
-        return progress >= senario.length;
+    public boolean isScenarioDone() {
+        return progress >= scenario.length;
     }
 
-    public SenarioConsole(String[] senario) {
+    public ScenarioConsole(String[] senario) {
         ArrayList<Item> items = new ArrayList<Item>();
         for (String message : senario) {
             assert message != null;
@@ -85,7 +85,7 @@ public class SenarioConsole implements AbstractConsole {
                 assert false; // never reach here
             }
         }
-        this.senario = items.toArray(new Item[0]);
+        this.scenario = items.toArray(new Item[0]);
         this.progress = 0;
     }
     
@@ -119,6 +119,6 @@ public class SenarioConsole implements AbstractConsole {
     }
     
     public int getSenarioLength() {
-        return senario.length;
+        return scenario.length;
     }
 }
