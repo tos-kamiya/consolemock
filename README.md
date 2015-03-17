@@ -25,9 +25,9 @@ class MyGreatTwitterApp {
 }
 ```
 
-2) Write a unit test as a senario.
+2) Write a unit test as a scenario.
 
-In a senario, a string starts with "> " represents an output by the app.
+In a scenario, a string starts with "> " represents an output by the app.
 A string starts with "$ " represents an input line by a user.
 
 ```
