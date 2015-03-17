@@ -8,8 +8,8 @@ A Java's mock unit-testing kit for java.io.Console or System.in/out.
 Modify this kind of code:
 
 ```
-class MyGreatTwitterApp {
-    private java.io.Console console = System.console();
+public class MyGreatTwitterApp {
+    private static java.io.Console console = System.console();
     ...
 }
 ```
@@ -20,7 +20,7 @@ to:
 import consolemock.*;
 
 class MyGreatTwitterApp {
-    public AbstractConsole console = JavaIoConsole(); // java.io.Console ('s wrapper) by default.
+    public static AbstractConsole console = JavaIoConsole(); // java.io.Console ('s wrapper) by default.
     ...
 }
 ```
@@ -32,11 +32,12 @@ A string starts with "$ " represents an input line by a user.
 
 ```
     @Test
-    void testHelpCommand() {
+    public void testHelpCommand() {
         SenarioConsole console = new SenarioConsole(new String[] {
             "> command: ",
             "$ h",
             "> [q] exit. [l] show time line. [t] tweet.\n",
+            "> command: ",
             "$ q",
             "> bye!\n"
         });
