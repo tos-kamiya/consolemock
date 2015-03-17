@@ -43,13 +43,15 @@ A string starts with "$ " represents an input line by a user.
         });
         
         MyGreatTwitterApp.console = console;
-        MyGreatTwitterApp..main(new String[0]);
+        MyGreatTwitterApp.main(new String[0]);
 
         assertTrue(console.isScenarioDone());
     }
 ```
 
 3) Run the unit test.
+
+A file `src/test/java/MyGreatTwitterAppTest.java` contains the almost same sample to above.
 
 ## License
 
