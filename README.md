@@ -42,10 +42,10 @@ A string starts with "$ " represents an input line by a user.
             "> bye!\n"
         });
         
-        MyGreatTwitterApp sut = new MyGreatTwitterApp();
-        sut.console = console;
-        sut.main(new String[0]);
-        assertTrue(console.isDone());
+        MyGreatTwitterApp.console = console;
+        MyGreatTwitterApp..main(new String[0]);
+
+        assertTrue(console.isScenarioDone());
     }
 ```
 
