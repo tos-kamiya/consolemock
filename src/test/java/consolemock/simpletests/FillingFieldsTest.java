@@ -13,6 +13,12 @@ class FillingFields {
     
     public void run() {
         String productId = console.readLine("product id: ");
+        for (char c : productId.toCharArray()) {
+            if (! Character.isLetterOrDigit(c)) {
+                console.format("Error. invalid product id\n");
+                return;
+            }
+        }
         String amountStr = console.readLine("qty: ");
         int amount = Integer.valueOf(amountStr);
         console.format("Order: product %s, qty %d.\n", productId, amount);
@@ -71,5 +77,20 @@ public class FillingFieldsTest {
 
         assertThat(console.isScenarioDone(), is(false));
         assertThat(senario[console.getProgress()], is(senario[senario.length - 1]));
+    }
+    
+    @Test(expected=Abort.class)
+    public void testInvalidProductId() {
+        String[] senario = new String[] {
+            "> product id: ",
+            "$ $%#",
+            "Error. invalid product id\n",
+            "! " // abort. no need to check the following.
+        };
+        ScenarioConsole console = new ScenarioConsole(senario);
+        
+        FillingFields sut = new FillingFields();
+        sut.console = console;
+        sut.run();
     }
 }

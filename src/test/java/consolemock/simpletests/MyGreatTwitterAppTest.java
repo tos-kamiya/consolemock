@@ -40,6 +40,7 @@ public class MyGreatTwitterAppTest {
         
         MyGreatTwitterApp.console = console;
         MyGreatTwitterApp.main(new String[0]);
+
         assertTrue(console.isScenarioDone());
     }
 }

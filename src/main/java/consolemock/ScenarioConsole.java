@@ -32,12 +32,22 @@ public class ScenarioConsole implements AbstractConsole {
             return String.format("ReadLine(%s)", toPrintableRepresentation(text));
         }
     }
+    public static class Abort extends Item {
+        public Abort() {
+            super("");
+        }
+        public String toString() {
+            return String.format("Abort()");
+        }
+    }
     
     private String readLine_i() {
         if (progress >= scenario.length)
             throw new ScenarioConsoleException.ExhaustdButReadLine();
         int pos = progress++;
         Item item = scenario[pos];
+        if (item instanceof Abort)
+            throw new ScenarioConsoleException.Abort();
         try {
             ReadLine r = (ReadLine)item;
             return r.text;
@@ -52,6 +62,8 @@ public class ScenarioConsole implements AbstractConsole {
             throw new ScenarioConsoleException.ExhaustdButFormat(actualWriteText);
         int pos = progress++;
         Item item = scenario[pos];
+        if (item instanceof Abort)
+            throw new ScenarioConsoleException.Abort();
         try {
             Format w = (Format)item;
             if (! actualWriteText.equals(w.text))
@@ -79,6 +91,9 @@ public class ScenarioConsole implements AbstractConsole {
                 break;
             case "> ":
                 items.add(new Format(tail));
+                break;
+            case "! ":
+                items.add(new Abort());
                 break;
             default:
                 assert message.substring(0, 2).equals("$ ") || message.substring(0, 2).equals("> ");
