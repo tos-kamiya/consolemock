@@ -78,13 +78,14 @@ public class ScenarioConsole implements AbstractConsole {
         return progress >= scenario.length;
     }
 
-    public ScenarioConsole(String[] senario) {
+    public ScenarioConsole(String[] senario) throws WrongScenarioItemException {
         ArrayList<Item> items = new ArrayList<Item>();
-        for (String message : senario) {
-            assert message != null;
-            assert message.length() >= 2;
-            String head = message.substring(0, 2);
-            String tail = message.substring(2);
+        int pos = 0;
+        for (String text : senario) {
+            assert text != null;
+            assert text.length() >= 2;
+            String head = text.substring(0, 2);
+            String tail = text.substring(2);
             switch (head) {
             case "$ ":
                 items.add(new ReadLine(tail));
@@ -93,13 +94,14 @@ public class ScenarioConsole implements AbstractConsole {
                 items.add(new Format(tail));
                 break;
             case "! ":
+                if (pos == 0)
+                    throw new WrongScenarioItemException.AbortAtBeginning();
                 items.add(new Abort());
                 break;
             default:
-                System.err.println("head = " + head);
-                assert head.equals("$ ") || head.equals("> ") || head.equals("! ");
-                assert false; // never reach here
+                throw new WrongScenarioItemException.IllegalText(text);
             }
+            ++pos;
         }
         this.scenario = items.toArray(new Item[0]);
         this.progress = 0;

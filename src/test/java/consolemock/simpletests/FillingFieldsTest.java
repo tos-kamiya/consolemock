@@ -42,6 +42,7 @@ public class FillingFieldsTest {
         FillingFields sut = new FillingFields();
         sut.console = console;
         sut.run();
+        
         assertTrue(console.isScenarioDone());
     }
 
@@ -57,6 +58,7 @@ public class FillingFieldsTest {
         FillingFields sut = new FillingFields();
         sut.console = console;
         sut.run();
+        
         assertTrue(console.isScenarioDone());
     }
 
@@ -92,11 +94,17 @@ public class FillingFieldsTest {
         
         FillingFields sut = new FillingFields();
         sut.console = console;
+
+        // ** Java 1.7 **
         try {
             sut.run();
-            fail();
+            assertTrue(console.isScenarioDone());
+            // ok in either case of done ...
         } catch (Abort e) {
-            // ok
+            // ... or abort.
         }
+        // ** Java 1.8  **
+        // import static consolemock.ScenarioAssert;
+        // assertDoneOrAbort(console, () -> { sut.run(); });
     }
 }
