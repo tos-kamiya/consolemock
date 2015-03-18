@@ -3,7 +3,7 @@
 # Console Mock
 A Java's mock unit-testing kit for java.io.Console or System.in/out.
 With console mock, you can write interactions between a CLI app and its user as a scenario,
-which contains printings by the app and input lines by the user as a timeline.
+which contains print-outs by the app and input lines by the user in a time line.
 
 ## How to use
 
