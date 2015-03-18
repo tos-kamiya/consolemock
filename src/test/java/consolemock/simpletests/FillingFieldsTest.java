@@ -1,9 +1,8 @@
 package consolemock.simpletests;
 
+import org.junit.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
-
-import org.junit.Test;
 
 import consolemock.*;
 import consolemock.ScenarioConsoleException.*;
@@ -24,9 +23,11 @@ class FillingFields {
         int amount = Integer.valueOf(amountStr);
         console.format("Order: product %s, qty %d.\n", productId, amount);
     }
+    
+    public static void main(String[] args) {
+        new FillingFields().run();
+    }
 }
-
-
 
 public class FillingFieldsTest {
     @Test

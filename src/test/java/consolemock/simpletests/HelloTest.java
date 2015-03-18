@@ -7,9 +7,9 @@ import static org.hamcrest.CoreMatchers.*;
 import consolemock.*;
 
 class Hello {
-    public AbstractConsole console = new SystemInOutConsole();
+    public static AbstractConsole console = new SystemInOutConsole();
     
-    public void run() {
+    public static void main(String[] args) {
         String name = console.readLine("What's your name: ");
         if (name.length() == 0)
             console.format("Hello, Mr.Nobody!\n");
@@ -27,9 +27,8 @@ public class HelloTest {
             "> Hello, John!\n"
         });
         
-        Hello sut = new Hello();
-        sut.console = console;
-        sut.run();
+        Hello.console = console;
+        Hello.main(new String[0]);
         assertTrue(console.isScenarioDone());
     }
 
@@ -41,9 +40,8 @@ public class HelloTest {
             "> Hello, Mr.Nobody!\n"
         });
         
-        Hello sut = new Hello();
-        sut.console = console;
-        sut.run();
+        Hello.console = console;
+        Hello.main(new String[0]);
         assertTrue(console.isScenarioDone());
     }
 }
