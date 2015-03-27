@@ -103,7 +103,7 @@ public class FillingFieldsTest {
             // ... or abort.
         }
         // ** Java 1.8  **
-        // import static consolemock.ScenarioAssert;
-        // assertDoneOrAbort(console, () -> { sut.run(); });
+        // import static consolemock.ScenarioAssert.*;
+        // assertDoneOrAbort(console, () -> sut.run());
     }
 }
