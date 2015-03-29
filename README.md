@@ -7,7 +7,7 @@ which contains print-outs by the app and input lines by the user in a time line.
 
 ## How to use
 
-1) Modify the target app for mocking, to replace a `java.io.Console` obj with `consolemock.SenarioConsole` obj.
+1) Modify the target app for mocking, to replace a `java.io.Console` obj with `consolemock.ScenarioConsole` obj.
 
 Modify this kind of code:
 
@@ -37,7 +37,7 @@ A string starts with "$ " represents an input line by a user.
 ```
     @Test
     public void testHelpCommand() {
-        SenarioConsole console = new SenarioConsole(new String[] {
+        ScenarioConsole console = new ScenarioConsole(new String[] {
             "> command: ",
             "$ h",
             "> [q] exit. [l] show time line. [t] tweet.\n",

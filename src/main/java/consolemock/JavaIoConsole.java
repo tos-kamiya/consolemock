@@ -3,7 +3,7 @@ package consolemock;
 import java.io.Console;
 
 public class JavaIoConsole implements AbstractConsole {
-    private Console console;
+    private final Console console;
 
     public JavaIoConsole() {
         console = System.console();

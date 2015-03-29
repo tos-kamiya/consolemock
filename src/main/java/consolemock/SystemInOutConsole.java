@@ -3,7 +3,7 @@ package consolemock;
 import java.io.*;
 
 public class SystemInOutConsole implements AbstractConsole {
-    private BufferedReader reader;
+    private final BufferedReader reader;
 
     public SystemInOutConsole() {
         reader = new BufferedReader(new InputStreamReader(System.in));

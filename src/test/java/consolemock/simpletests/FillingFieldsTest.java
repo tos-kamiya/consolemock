@@ -15,7 +15,7 @@ class FillingFields {
         for (char c : productId.toCharArray()) {
             if (! Character.isLetterOrDigit(c)) {
                 console.format("Error. invalid product id.\n");
-                console.format("Order canceld.\n");
+                console.format("Order canceled.\n");
                 return;
             }
         }
@@ -63,7 +63,7 @@ public class FillingFieldsTest {
 
     @Test
     public void testExtraInput() {
-        String[] senario = new String[] {
+        String[] scenario = new String[] {
             "> product id: ",
             "$ shaver003",
             "> qty: ",
@@ -71,25 +71,25 @@ public class FillingFieldsTest {
             "> Order: product shaver003, qty 4.\n",
             "$ extra input line" // extra input
         };
-        ScenarioConsole console = new ScenarioConsole(senario);
+        ScenarioConsole console = new ScenarioConsole(scenario);
         
         FillingFields sut = new FillingFields();
         sut.console = console;
         sut.run();
 
         assertThat(console.isScenarioDone(), is(false));
-        assertThat(senario[console.getProgress()], is(senario[senario.length - 1]));
+        assertThat(scenario[console.getProgress()], is(scenario[scenario.length - 1]));
     }
     
     @Test
     public void testInvalidProductId() {
-        String[] senario = new String[] {
+        String[] scenario = new String[] {
             "> product id: ",
             "$ $%#",
             "> Error. invalid product id.\n",
             "! " // abort. no need to check the following.
         };
-        ScenarioConsole console = new ScenarioConsole(senario);
+        ScenarioConsole console = new ScenarioConsole(scenario);
         
         FillingFields sut = new FillingFields();
         sut.console = console;

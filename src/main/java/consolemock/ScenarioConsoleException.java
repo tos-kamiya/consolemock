@@ -22,12 +22,12 @@ public class ScenarioConsoleException extends RuntimeException {
         super(cause);
     }
     
-    public static class ExhaustdButFormat extends ScenarioConsoleException {
+    public static class ExhaustedButFormat extends ScenarioConsoleException {
         private static final long serialVersionUID = 1L;
 
         public final String actualWriteText;
 
-        public ExhaustdButFormat(String actualWriteText) {
+        public ExhaustedButFormat(String actualWriteText) {
             this.actualWriteText = actualWriteText;
         }
         
@@ -102,7 +102,7 @@ public class ScenarioConsoleException extends RuntimeException {
     public static class Abort extends ScenarioConsoleException {
         private static final long serialVersionUID = 1L;
         public String toString() {
-            return String.format("Abort()");
+            return "Abort()";
         }
     }
 

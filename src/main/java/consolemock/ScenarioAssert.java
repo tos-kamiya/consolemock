@@ -7,7 +7,7 @@ import consolemock.ScenarioConsoleException.Abort;
 
 public class ScenarioAssert {
     public interface ScenarioRun {
-        public abstract void run();
+        void run();
     }
 
     public static void assertDoneOrAbort(ScenarioConsole console, ScenarioRun scenarioRun) {

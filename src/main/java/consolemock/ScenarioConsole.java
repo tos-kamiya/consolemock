@@ -37,7 +37,7 @@ public class ScenarioConsole implements AbstractConsole {
             super("");
         }
         public String toString() {
-            return String.format("Abort()");
+            return "Abort()";
         }
     }
     
@@ -59,7 +59,7 @@ public class ScenarioConsole implements AbstractConsole {
     
     private void format_i(String actualWriteText) {
         if (progress >= scenario.length)
-            throw new ScenarioConsoleException.ExhaustdButFormat(actualWriteText);
+            throw new ScenarioConsoleException.ExhaustedButFormat(actualWriteText);
         int pos = progress++;
         Item item = scenario[pos];
         if (item instanceof Abort)
@@ -78,10 +78,10 @@ public class ScenarioConsole implements AbstractConsole {
         return progress >= scenario.length;
     }
 
-    public ScenarioConsole(String[] senario) throws WrongScenarioItemException {
+    public ScenarioConsole(String[] scenario) throws WrongScenarioItemException {
         ArrayList<Item> items = new ArrayList<Item>();
         int pos = 0;
-        for (String text : senario) {
+        for (String text : scenario) {
             assert text != null;
             assert text.length() >= 2;
             String head = text.substring(0, 2);
@@ -103,7 +103,7 @@ public class ScenarioConsole implements AbstractConsole {
             }
             ++pos;
         }
-        this.scenario = items.toArray(new Item[0]);
+        this.scenario = items.toArray(new Item[items.size()]);
         this.progress = 0;
     }
     
@@ -136,7 +136,7 @@ public class ScenarioConsole implements AbstractConsole {
         return progress;
     }
     
-    public int getSenarioLength() {
+    public int getScenarioLength() {
         return scenario.length;
     }
 }
