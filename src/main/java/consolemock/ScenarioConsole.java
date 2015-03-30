@@ -4,8 +4,6 @@ import static consolemock.Repr.toPrintableRepresentation;
 
 import java.util.ArrayList;
 
-import consolemock.AbstractConsole;
-
 public class ScenarioConsole implements AbstractConsole {
     private Item[] scenario;
     private int progress;
@@ -43,7 +41,7 @@ public class ScenarioConsole implements AbstractConsole {
     
     private String readLine_i() {
         if (progress >= scenario.length)
-            throw new ScenarioConsoleException.ExhaustdButReadLine();
+            throw new ScenarioConsoleException.ExhaustedButReadLine();
         int pos = progress++;
         Item item = scenario[pos];
         if (item instanceof Abort)

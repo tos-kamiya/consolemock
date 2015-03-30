@@ -32,14 +32,14 @@ public class ScenarioConsoleException extends RuntimeException {
         }
         
         public String toString() {
-            return String.format("ExhaustdButFormat(%s)", toPrintableRepresentation(actualWriteText));
+            return String.format("ExhaustedButFormat(%s)", toPrintableRepresentation(actualWriteText));
         }
     }
     
-    public static class ExhaustdButReadLine extends ScenarioConsoleException {
+    public static class ExhaustedButReadLine extends ScenarioConsoleException {
         private static final long serialVersionUID = 1L;
 
-        public ExhaustdButReadLine() {
+        public ExhaustedButReadLine() {
         }
     }
     
