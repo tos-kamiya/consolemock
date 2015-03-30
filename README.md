@@ -57,6 +57,11 @@ A string starts with "$ " represents an input line by a user.
 
 A file `src/test/java/MyGreatTwitterAppTest.java` contains the almost same sample to above.
 
+## Todos
+
+- [ ] Skip until next user input.
+- [ ] Matching with regular expression.
+
 ## License
 
 Public Domain except for a class `Repr`, which has been taken from http://stackoverflow.com/a/1351973 .
