@@ -38,38 +38,51 @@ public class ScenarioConsole implements AbstractConsole {
             return "Abort()";
         }
     }
-    
+    public static class SkipUntilReadLine extends Item {
+        public SkipUntilReadLine(String text) {
+            super(text);
+        }
+        public String toString() {
+            return String.format("SkipUntilReadLine(%s)", toPrintableRepresentation(text));
+        }
+    }
+
     private String readLine_i() {
         if (progress >= scenario.length)
             throw new ScenarioConsoleException.ExhaustedButReadLine();
-        int pos = progress++;
+        int pos = progress;
         Item item = scenario[pos];
         if (item instanceof Abort)
             throw new ScenarioConsoleException.Abort();
-        try {
-            ReadLine r = (ReadLine)item;
-            return r.text;
-        } catch (ClassCastException e) {
-            Format w = (Format)item;
+        else if (item instanceof Format) {
+            Format w = (Format) item;
             throw new ScenarioConsoleException.FormatExpectedButReadLine(pos, w);
-        }
+        } else if (item instanceof SkipUntilReadLine || item instanceof ReadLine) {
+            ++progress;
+            return item.text;
+        } else
+            throw new AssertionError("invalid type of scenario item");
     }
     
     private void format_i(String actualWriteText) {
         if (progress >= scenario.length)
             throw new ScenarioConsoleException.ExhaustedButFormat(actualWriteText);
-        int pos = progress++;
+        int pos = progress;
         Item item = scenario[pos];
         if (item instanceof Abort)
             throw new ScenarioConsoleException.Abort();
-        try {
-            Format w = (Format)item;
-            if (! actualWriteText.equals(w.text))
+        else if (item instanceof Format) {
+            Format w = (Format) item;
+            if (!actualWriteText.equals(w.text))
                 throw new ScenarioConsoleException.FormatWrongText(pos, w, actualWriteText);
-        } catch (ClassCastException e) {
+            ++progress;
+        } else if (item instanceof SkipUntilReadLine)
+            ;
+        else if (item instanceof ReadLine) {
             ReadLine r = (ReadLine)item;
             throw new ScenarioConsoleException.ReadLineExpectedButFormat(pos, r, actualWriteText);
-        }
+        } else
+            throw new AssertionError("invalid type of scenario item");
     }
     
     public boolean isScenarioDone() {
@@ -81,23 +94,33 @@ public class ScenarioConsole implements AbstractConsole {
         int pos = 0;
         for (String text : scenario) {
             assert text != null;
-            assert text.length() >= 2;
-            String head = text.substring(0, 2);
-            String tail = text.substring(2);
+            String head;
+            String tail;
+            int s = text.indexOf(' ');
+            if (s < 0) {
+                head = text;
+                tail = "";
+            } else {
+                head = text.substring(0, s);
+                tail = text.substring(s + 1);
+            }
             switch (head) {
-            case "$ ":
-                items.add(new ReadLine(tail));
-                break;
-            case "> ":
-                items.add(new Format(tail));
-                break;
-            case "! ":
-                if (pos == 0)
-                    throw new WrongScenarioItemException.AbortAtBeginning();
-                items.add(new Abort());
-                break;
-            default:
-                throw new WrongScenarioItemException.IllegalText(text);
+                case ":$":
+                    items.add(new SkipUntilReadLine(tail));
+                    break;
+                case "$":
+                    items.add(new ReadLine(tail));
+                    break;
+                case ">":
+                    items.add(new Format(tail));
+                    break;
+                case "!":
+                    if (pos == 0)
+                        throw new WrongScenarioItemException.AbortAtBeginning();
+                    items.add(new Abort());
+                    break;
+                default:
+                    throw new WrongScenarioItemException.IllegalText(text);
             }
             ++pos;
         }

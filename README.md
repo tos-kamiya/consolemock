@@ -55,11 +55,11 @@ A string starts with "$ " represents an input line by a user.
 
 3) Run the unit test.
 
-A file `src/test/java/MyGreatTwitterAppTest.java` contains the almost same sample to above.
+A file `src/test/java/examples/MyGreatTwitterAppTest.java` contains the almost same sample to above.
 
 ## Todos
 
-- [ ] Skip until next user input.
+- [x] Add feature to skip until next user input.
 - [ ] Matching with regular expression.
 
 ## License

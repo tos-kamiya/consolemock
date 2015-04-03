@@ -1,4 +1,4 @@
-package consolemock.simpletests;
+package examples;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -39,6 +39,18 @@ public class HelloTest {
             "> Hello, Mr.Nobody!\n"
         });
         
+        Hello.console = console;
+        Hello.main(new String[0]);
+        assertTrue(console.isScenarioDone());
+    }
+
+    @Test
+    public void checkJustResponse() {
+        ScenarioConsole console = new ScenarioConsole(new String[] {
+                ":$ John",
+                "> Hello, John!\n"
+        });
+
         Hello.console = console;
         Hello.main(new String[0]);
         assertTrue(console.isScenarioDone());
